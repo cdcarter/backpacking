@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>PeopleDb</title>
+		<LINK href="/style.css" rel="stylesheet" type="text/css">
+	</head>
+	
+	<body>
+		<table>
+			<tr><th>ID</th><th>Name</th><th>Age</th></tr>
+			<%= personString %>
+			<form method="post">
+			  <tr>
+			    <td></td>
+			    <td><input type="text" name="name"/></td>
+			    <td><input type="text" name="age"/></td><td><input type="submit" value="Submit" /></td>
+			  </tr>
+			</form>
+		</table>
+	</body>
+</html>
