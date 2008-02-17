@@ -223,12 +223,11 @@ WebRequest do(
    )
 	done := method(
 		self mySocket write(
-			"HTTP/1.1 ", self responseCode asString, " ", 
-			self responseMessage, "\r\n" 
+			"HTTP/1.1 " .. self responseCode asString .. " " .. self responseMessage .. "\r\n" 
 	   )
 		self sentCookies foreach(key, value,
 			self mySocket write(
-				"Set-cookie: ", key, "=", value, "\r\n" 
+				"Set-cookie: " .. key .. "=" .. value .. "\r\n" 
 		   )
 	   )
 		self mySocket write(sentBuffer asString)
