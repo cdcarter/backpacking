@@ -24,7 +24,7 @@ Builder tag := method(name, nodes,
   if(call message argAt(2),
     call evalArgAt(2) foreach(a, args = args .. " #{a argAt(0) doInContext asString}=\"#{a argAt(1) doInContext asString}\"" interpolate;)
   )
-  "<#{name}#{args}>#{inner}</#{name}>" interpolate
+  "<#{name}#{args}>\n#{inner}\n</#{name}>\n" interpolate
 )
 
 Object curlyBrackets := method( call message arguments )
