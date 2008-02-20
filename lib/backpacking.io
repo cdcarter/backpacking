@@ -61,6 +61,11 @@ BackPack := Object clone do(
 		
 		self request sendList(lines) 
 	)
+	
+	render_view := method(view,
+		data := self request views getSlot(view) call
+		self request send(data)
+	)
 )
 
 BackPacking := WebRequest clone do(	
@@ -71,6 +76,11 @@ BackPacking := WebRequest clone do(
 		c uri := url
 		controllers append(c)
 		return c
+	)
+	
+	views := method(
+		v := Object clone
+		self views := v
 	)
 	
 	static := method(file,url,

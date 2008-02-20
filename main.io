@@ -3,11 +3,13 @@ doFile("lib/db.io")
 MyApp := BackPacking clone
 
 People := DBSrc clone do(
-	with("people",list(list("name","varchar"), list("age","integer")) asMap)
+	with("people",{name = "varchar", age = "integer"})
+	
 	setDB(SQLite3 clone open("people.db"))
-	if(ifTable not,
+	
+	unlessTable(
 		generateTable
-		insert(Map clone addKeysAndValues(list("name","age"),list("Chris","16")))
+		insert({name = "Chris", age = 16})
 	)
 )
 
@@ -17,12 +19,29 @@ UsersList := MyApp controller("/people") do(
 			 "<tr><td>" .. m at("id") .. "</td><td>" .. m at("name") .. "</td>
 			  <td>" ..  m at("age") .. "</td><td><a href=\"/delete/".. m at("id") .. "\">Delete</a></td></tr>" 
 		) join("\n")
-		render("people")
+		render_view("list")
 	)
 	
 	post := method(
 		People insert(input)
 		self get
+	)
+)
+
+Views := MyApp views do(
+	list := method(controller,
+		Builder html(
+			head(title("PeopleDB"))
+			body(
+				h1("people!")
+				table(
+					tr(th("ID");th("Name");th("Age"))
+					controller people map(person,
+						tr(td(person at("id"));td(person at("name"));td(person at("age")))
+					)
+				)
+			)
+		)
 	)
 )
 

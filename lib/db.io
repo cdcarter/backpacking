@@ -67,6 +67,12 @@ DBSrc := Object clone do(
 		db tableNames contains(tableName) 
 	)
 	
+	unlessTable := method(
+		if(ifTable not,
+			call argAt(0)
+		)
+	)
+	
 	db := method(
 		if(dbhandle isNil not,
 			dbhandle
