@@ -13,9 +13,9 @@ Builder tag := method(name, nodes,
     if(nodes name != ";",
       inner = inner .. if(nodes argCount > 0,
         if(nodes argAt(1),
-        a := nodes argAt(0) doInContext
-        tag(nodes name, nodes argAt(1),a),
-        tag(nodes name, nodes argAt(0))),
+          tag(nodes name, nodes argAt(1), nodes argAt(0) doInContext),
+          tag(nodes name, nodes argAt(0))
+        ),
         doMessage(nodes))
     )
     nodes = nodes next
