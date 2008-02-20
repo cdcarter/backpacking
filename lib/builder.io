@@ -1,6 +1,5 @@
 Builder := Object clone
 Builder forward := method(
-	if(call message name == "controller",controller)
   if(call message argAt(1),
     tag(call message name, call message argAt(1), call message argAt(0))
     ,
