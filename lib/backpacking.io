@@ -64,6 +64,9 @@ BackPack := Object clone do(
 	
 	render_view := method(view,
 		data := self request views getSlot(view) call(self)
+		self request sendResponse (200, "OK")
+		self request sendHeader ("Content-type", "text/HTML")
+		self request endHeaders ()
 		self request send(data)
 	)
 )
