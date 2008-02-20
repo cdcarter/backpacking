@@ -28,17 +28,17 @@ UsersList := MyApp controller("/people") do(
 )
 
 Views := MyApp views do(
-	list := method(
+	list := method(controller,
 		Builder html(
 			head(title("PeopleDB"))
 			body(
-				h1("people!")
-				table(
-					tr(th("ID");th("Name");th("Age"))
-					#self people map(person,
-					#	tr(td(person at("id"));td(person at("name"));td(person at("age")))
-					#)
-				)
+			#	h1("people!")
+			#	table(
+			#		tr(th("ID");th("Name");th("Age"))
+			#		controller people map(person,
+			#			tr(td(person at("id"));td(person at("name"));td(person at("age")))
+			#		)
+			#	)
 			)
 		)
 	)

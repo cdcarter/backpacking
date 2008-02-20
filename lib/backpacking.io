@@ -63,8 +63,7 @@ BackPack := Object clone do(
 	)
 	
 	render_view := method(view,
-		self request views controller := self
-		data := self request views getSlot(view) call
+		data := self request views getSlot(view) call(self)
 		self request send(data)
 	)
 )

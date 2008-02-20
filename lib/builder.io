@@ -1,5 +1,6 @@
 Builder := Object clone
 Builder forward := method(
+	if(call message name == "controller",controller)
   if(call message argAt(1),
     tag(call message name, call message argAt(1), call message argAt(0))
     ,
@@ -28,19 +29,3 @@ Builder tag := method(name, nodes,
 )
 
 Object curlyBrackets := method( call message arguments )
-
-Builder html(
-  head(title("Lazy Bricks, Lazy Mortar"))
-  body(
-    div(
-      p({style = "foobar"}, "Here's a bit more Io...")
-    #  p("Previously on Hackety Org..."
- 		#		div("cat")
-	  # 	)
-
-    )
-    div(
-      p("Adieu, friends and uncles.")
-    )
-  )
-) print
