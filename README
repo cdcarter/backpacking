@@ -1,0 +1,31 @@
+# Backpacking: Io-powered web framework #
+
+Inspired by the simplicity of other web frameworks, and the awesome
+metaprogramming power of Io, Chris Carter set out to recreate nails,
+hammer and toolbox.
+
+Here it is: the wheel, recreated in Io. 
+
+* both DBRMS- and ORM-agnostic 
+* simple template system
+* MIT-licensed, yours to fiddle with
+
+## Run it ##
+
+  $ io
+
+Will start a server on port 8000 per default.
+
+## Get the source code ##
+
+git clone git://github.com/cdcarter/backpacking.git
+
+## Co-creators ##
+
+Chris Carter
+Ian Ownbey (the View system, among other things)
+Olle Jonsson (this Readme)
+
+## Read more ##
+
+http://iolanguage.com/
