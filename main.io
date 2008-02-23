@@ -17,10 +17,10 @@ People := DBSrc clone do(
 UsersList := MyApp controller("/people") do(
 	get := method(
 		self people := People findAll
-
+    
 		render_view("list")
 	)
-	
+
 	post := method(
 		People insert(input)
 		self get
@@ -29,17 +29,21 @@ UsersList := MyApp controller("/people") do(
 
 Views := MyApp views do(
 	list := method(controller,
-		Builder html(
-			head(title("PeopleDB"))
-			body(
-				h1("people!")
-				table(
-					tr(th("ID");th("Name");th("Age"))
-					controller people map(person,
-						tr(td(person at("id"));td(person at("name"));td(person at("age")))
-					)
-				)
-			)
+    
+    html(
+      head(
+        title("People")
+      )
+      body(
+        h1("Some People:")
+        controller people foreach(person,
+				  p(
+            person at("name")
+            ": "
+            person at("age")
+          )
+			  )
+      )
 		)
 	)
 )

@@ -1,4 +1,5 @@
 doFile("lib/server.io")
+doFile("lib/builder.io")
 doFile("lib/eio.io")
 
 Socket
@@ -63,7 +64,7 @@ BackPack := Object clone do(
 	)
 	
 	render_view := method(view,
-		data := self request views getSlot(view) call(self)
+		data := self request views perform(view, self)
 		self request sendResponse (200, "OK")
 		self request sendHeader ("Content-type", "text/HTML")
 		self request endHeaders ()
@@ -81,10 +82,18 @@ BackPacking := WebRequest clone do(
 		return c
 	)
 	
-	views := method(
-		v := Object clone
-		self views := v
-	)
+	views := Builder clone
+  /*views builder := Builder clone
+  views builder sender := views
+  views forward := method (
+    "View: " println
+    call message println
+    call sender println
+    if (call sender == builder,
+      nil,
+      builder doMessage(call message)
+      )
+  )*/
 	
 	static := method(file,url,
 		c := BackPack clone
