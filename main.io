@@ -17,7 +17,6 @@ People := DBSrc clone do(
 UsersList := MyApp controller("/people") do(
   get := method(
     self people := People findAll
-    
     render_view("index")
   )
 
@@ -64,6 +63,18 @@ Views := MyApp views do(
         a(href "http://www.google.com"
           some_option "some option value", 
           "here is a useful link"
+        )
+        h3("Add a user")
+        form(method "post"; action "/people",
+          # TODO: Currently, these have to be in the right order, which is
+          # pretty silly.
+          label(for "name", "Name: ")
+          input(name "name", nil)
+          br
+          label(for "age", "Age: ")
+          input(name "age", nil)
+          br
+          input(type "submit"; value "submit", nil)
         )
       )
     )

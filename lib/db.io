@@ -9,14 +9,16 @@ DBSrc := Object clone do(
   filter := method(
     result := Map clone
       call message arguments foreach(i, arg,
-        result atPut(arg arguments at(0) doInContext, arg arguments at(1) doInContext)
+        result atPut(arg arguments at(0) doInContext, 
+                     arg arguments at(1) doInContext)
       )
       
     pairs := result map(k,v,
       "(#{k} = '#{v}')"
     )
   
-    self db exec("SELECT * FROM #{tablename} WHERE #{pairs join(" AND ")}" interpolate)
+    self db exec("SELECT * FROM #{tablename} WHERE #{pairs join(" AND 
+                 ")}" interpolate)
   )
   
   findAll := method(
@@ -36,8 +38,12 @@ DBSrc := Object clone do(
   
   insert := method(values,
     values := values select(k,v, columns keys contains(k) )
-    colString := values map(c,d, "\"#{c}\"" interpolate) join(",")
+    colString := values map(c,d,  "\"#{c}\"" interpolate) join(",")
     dataString := values map(c,d, "\"#{d}\"" interpolate) join(",")
+    
+    colString = db escapeString(colString)
+    dataString = db escapeString(dataString)
+    
     string := "INSERT INTO #{tableName} (#{colString}) VALUES (#{dataString});" interpolate
     self db exec(string)
   )

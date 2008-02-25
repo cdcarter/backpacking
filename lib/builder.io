@@ -18,8 +18,8 @@ Builder forward := method(
 # in the given context, with the options provided by options
 Builder tag := method(context, name, contents, options,
   
-  # Hack for self-closing tags with no contents.
-  if (contents not,
+  # For self-closing tags with no contents or options, we just need the name.
+  if (contents not and options not,
     return "<#{name}/>" interpolate
   )
 
@@ -49,6 +49,9 @@ Builder tag := method(context, name, contents, options,
       opts = opts .. " #{opt}=\"#{value}\"" interpolate
     )
   )
-  "<#{name}#{opts}>\n#{inner}\n</#{name}>\n" interpolate
+  if (inner == "nil",
+    return "<#{name}#{opts}/>\n" interpolate,
+    return "<#{name}#{opts}>\n#{inner}\n</#{name}>\n" interpolate
+  )
 )
 
