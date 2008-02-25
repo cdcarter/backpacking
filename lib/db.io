@@ -69,7 +69,7 @@ DBSrc := Object clone do(
 	
 	unlessTable := method(
 		if(ifTable not,
-			call argAt(0)
+			call evalArgAt(0)
 		)
 	)
 	
