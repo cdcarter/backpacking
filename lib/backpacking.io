@@ -1,4 +1,5 @@
 doFile("lib/server.io")
+doFile("lib/message.io")
 doFile("lib/builder.io")
 doFile("lib/eio.io")
 

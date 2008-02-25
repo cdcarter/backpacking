@@ -18,7 +18,7 @@ UsersList := MyApp controller("/people") do(
 	get := method(
 		self people := People findAll
     
-		render_view("list")
+		render_view("index")
 	)
 
 	post := method(
@@ -28,21 +28,17 @@ UsersList := MyApp controller("/people") do(
 )
 
 Views := MyApp views do(
-	list := method(controller,
+	index := method(controller,
     
     html(
       head(
         title("People")
       )
       body(
-        h1("Some People:")
-        controller people foreach(person,
-				  p(
-            person at("name")
-            ": "
-            person at("age")
-          )
-			  )
+        p("foobared"
+          list("TADA", "TOODOO") map(x,b(x))
+          a(href "google.com", "google")
+        )
       )
 		)
 	)

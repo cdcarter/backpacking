@@ -5,7 +5,10 @@ Builder forward := method(
   #of sub-nodes.  If we only have one, it's the subnodes.
 
   if(call message argAt(1),
-    tag(call sender, call message name, call message argAt(1), call message argAt(0))
+    tag(call sender, 
+        call message name, 
+        call message argAt(1), 
+        call message argAt(0))
     ,
     tag(call sender, call message name, call message argAt(0))
   )
@@ -14,27 +17,21 @@ Builder forward := method(
 Builder tag := method(context, name, node, options,
   inner := ""
   
-  while(node,
-    nextNode := node
-    while (nextNode and nextNode isEndOfLine not,
-      nextNode = nextNode next
+  node lines foreach(line, 
+    innerObj := line doInContext(context)
+    if (innerObj isKindOf(List),
+      innerObj = innerObj join
     )
-    if (nextNode, nextNode = nextNode next)
-
-    if (nextNode,
-      code := node code asMutable removeSeq(nextNode code)
-      chunk := Message fromString(code)
-      ,
-      chunk := node
-    )
-
-    inner := inner .. chunk doInContext(context) asString
-    node = nextNode
+    inner = inner .. innerObj asString
   )
   
   args := ""
   if(options,
-    options doInContext(self) foreach(a, args = args .. " #{a argAt(0) doInContext asString}=\"#{a argAt(1) doInContext asString}\"" interpolate;)
+    options lines foreach(option,
+      opt := option name
+      value := option next doInContext(context) asString
+      args = args .. " #{opt}=\"#{value}\"" interpolate
+    )
   )
   "<#{name}#{args}>\n#{inner}\n</#{name}>\n" interpolate
 )
