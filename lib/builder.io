@@ -2,7 +2,7 @@ Builder := Object clone
 
 Builder forward := method(
   #If we have two arguments, the first is the options, the second is the block
-  #of sub-nodes.  If we only have one, it's the subnodes.
+  #of sub-nodes.  If we only have one, it's just the subnodes.
 
   if(call message argAt(1),
     tag(call sender, 
@@ -14,10 +14,19 @@ Builder forward := method(
   )
 )
 
-Builder tag := method(context, name, node, options,
-  inner := ""
+# Creates an xml tag with the given name, with the contents provided, executed
+# in the given context, with the options provided by options
+Builder tag := method(context, name, contents, options,
   
-  node lines foreach(line, 
+  # Hack for self-closing tags with no contents.
+  if (contents not,
+    return "<#{name}/>" interpolate
+  )
+
+  # Form the inner html by getting each line of code of the contents, executing
+  # it in the right context and joining the results if it's a list.
+  inner := ""
+  contents lines foreach(line, 
     innerObj := line doInContext(context)
     if (innerObj isKindOf(List),
       innerObj = innerObj join
@@ -25,16 +34,21 @@ Builder tag := method(context, name, node, options,
     inner = inner .. innerObj asString
   )
   
-  args := ""
+  # For options, the name of the option is the first symbol of a message and
+  # the value is a string returned by executing the rest of the line of the
+  # message. eg:
+  #  a(                              # a link
+  #    href "http://www.google.com", # link options
+  #    "here is a useful link"       # link contents
+  #  )
+  opts := ""
   if(options,
     options lines foreach(option,
       opt := option name
       value := option next doInContext(context) asString
-      args = args .. " #{opt}=\"#{value}\"" interpolate
+      opts = opts .. " #{opt}=\"#{value}\"" interpolate
     )
   )
-  "<#{name}#{args}>\n#{inner}\n</#{name}>\n" interpolate
+  "<#{name}#{opts}>\n#{inner}\n</#{name}>\n" interpolate
 )
-
-Object curlyBrackets := method( call message arguments )
 

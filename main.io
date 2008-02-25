@@ -30,14 +30,40 @@ UsersList := MyApp controller("/people") do(
 Views := MyApp views do(
 	index := method(controller,
     
+    # Within a view method, undefined slot accesses are turned into html tags.
     html(
       head(
         title("People")
       )
       body(
-        p("foobared"
-          list("TADA", "TOODOO") map(x,b(x))
-          a(href "google.com", "google")
+        # Multiple child tags are defined one per statement
+        h3("Some people:")
+        table(border 1,
+          tr(
+            th("Name")
+            th("Age")
+          )
+
+          # When a list is returned, it is assumed to be a list of inner html
+          # strings and is joined.
+          controller people map(x,
+            
+            # TODO: This tag is lost due to being called from map, so not picked
+            # up by the tag() nesting.  Only the return value from the map
+            # block will be used.
+            ignoredtag("Some ignored text")
+
+            tr(
+              td(b(x at("name")))
+              td(x at("age"))
+            )
+          )
+        )
+
+        # An example of tag option.
+        a(href "http://www.google.com"
+          some_option "some option value", 
+          "here is a useful link"
         )
       )
 		)

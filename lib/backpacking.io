@@ -84,18 +84,7 @@ BackPacking := WebRequest clone do(
 	)
 	
 	views := Builder clone
-  /*views builder := Builder clone
-  views builder sender := views
-  views forward := method (
-    "View: " println
-    call message println
-    call sender println
-    if (call sender == builder,
-      nil,
-      builder doMessage(call message)
-      )
-  )*/
-	
+
 	static := method(file,url,
 		c := BackPack clone
 		c uri := url
