@@ -2,10 +2,12 @@ doFile("lib/server.io")
 doFile("lib/util.io")
 doFile("lib/builder.io")
 doFile("lib/eio.io")
+doFile("lib/db.io")
 
 Socket
 
 BackPack := Object clone do(
+  
   handle := method(
     command := self request command
     

@@ -1,6 +1,4 @@
 doFile("lib/backpacking.io")
-doFile("lib/db.io")
-doFile("lib/builder.io")
 MyApp := BackPacking clone
 
 People := DBSrc clone do(
