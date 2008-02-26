@@ -1,4 +1,5 @@
 doFile("lib/backpacking.io")
+
 MyApp := BackPacking clone
 
 People := DBSrc clone do(
@@ -23,7 +24,6 @@ UsersList := MyApp controller("/people") do(
     self get
   )
 )
-
 Views := MyApp views do(
   index := method(controller,
     

@@ -47,8 +47,11 @@ Object squareBrackets := method(
 )
 
 # Add the ||= to set if not already set
-OperatorTable addAssignOperator("||=", "setIfNotSet")
 
-Object setIfNotSet := method(
-  if(call sender hasSlot(call message argAt(0) asString), return call sender getSlot(call message argAt(0) asString), call sender setSlot(call message argAt(0) asString, call message argAt(1)))
-)
+# TODO: Fix this
+
+# Object setIfNotSet := method(
+#  if(call target hasSlot(call message argAt(0) asString), return call target getSlot(call message argAt(0) asString), call target setSlot(call message argAt(0) asString, call message argAt(1)))
+# )
+
+# OperatorTable addAssignOperator("||=", "setIfNotSet")

@@ -7,6 +7,19 @@ doFile("lib/db.io")
 Socket
 
 BackPack := Object clone do(
+  Config := Object clone do(
+    setDefaults := method(
+      self env := "development"
+    ) call
+
+    parse := method(args,
+      if(args type == List type,
+        System getOptions(args) foreach(k, v,
+          if(k == "environment", self env := v)
+        )
+      )
+    ) call(System args)
+  )
   
   handle := method(
     command := self request command
